@@ -3,45 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DHL Express Tracking</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #fff; margin: 0; padding: 0; }
-        header { background: #ffcc00; padding: 20px; text-align: center; }
-        header img { max-height: 50px; }
-        .container { padding: 20px; max-width: 800px; margin: auto; }
-        .tracking-info { border: 1px solid #ddd; padding: 20px; border-radius: 5px; }
-        .progress-bar { background: #ddd; border-radius: 20px; overflow: hidden; height: 20px; margin: 20px 0; }
-        .progress { background: #ffcc00; height: 100%; width: 70%; transition: width 1s; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        table, th, td { border: 1px solid #ddd; }
-        th, td { padding: 10px; text-align: left; }
-        th { background: #f2f2f2; }
-    </style>
+    <title>DHL Shipment Tracking</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <img src="dhl_logo.png" alt="DHL Express Logo">
+        <img src="https://www.dhl.com/content/dam/dhl/global/core/images/logos/dhl-logo.svg" alt="DHL Logo" class="logo">
+        <h1>Track Your Shipment</h1>
     </header>
-    <div class="container">
-        <h2>Tracking Number: <strong>DEMO123456789</strong></h2>
-        <p>Date/Time: <span id="datetime"></span></p>
-        <div class="tracking-info">
-            <h3>Shipment Progress</h3>
-            <p>From Brussels, Belgium → To Beijing, China</p>
-            <div class="progress-bar"><div class="progress"></div></div>
-            <h3>Delivery History</h3>
+
+    <main>
+        <section class="tracking-form">
+            <input type="text" id="trackingNumber" placeholder="Enter your tracking number">
+            <button onclick="trackPackage()">Track</button>
+        </section>
+
+        <section id="trackingResult" class="hidden">
+            <h2>Status: <span id="statusText"></span></h2>
+
+            <div class="progress-container">
+                <div class="stage" id="stage1">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/parcel.png">
+                    <p>Picked up</p>
+                </div>
+                <div class="stage" id="stage2">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/in-transit.png">
+                    <p>In Transit</p>
+                </div>
+                <div class="stage" id="stage3">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/customs-officer.png">
+                    <p>Customs</p>
+                </div>
+                <div class="stage" id="stage4">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/delivery.png">
+                    <p>Delivery</p>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress" class="progress"></div>
+                </div>
+            </div>
+
             <table>
-                <tr><th>Date</th><th>Location</th><th>Status</th></tr>
-                <tr><td>2025-08-01</td><td>Brussels, Belgium</td><td>Shipment picked up</td></tr>
-                <tr><td>2025-08-02</td><td>Brussels, Belgium</td><td>Departed Facility</td></tr>
-                <tr><td>2025-08-04</td><td>Shanghai, China</td><td>Arrived at Facility</td></tr>
-                <tr><td>2025-08-05</td><td>Beijing, China</td><td>With delivery courier</td></tr>
-                <tr><td>2025-08-05</td><td>Beijing, China</td><td>Delivered</td></tr>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody id="trackingTable">
+                </tbody>
             </table>
-        </div>
-    </div>
-    <script>
-        document.getElementById('datetime').innerText = new Date().toLocaleString();
-    </script>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
